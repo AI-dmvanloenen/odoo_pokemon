@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pokemon_card_user,pokemon.card user,model_pokemon_card,base.group_user,1,1,1,1
+access_pokemon_set_user,pokemon.set user,model_pokemon_set,base.group_user,1,1,1,1

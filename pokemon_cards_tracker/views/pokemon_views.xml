@@ -1,0 +1,135 @@
+<odoo>
+
+    <record id="view_pokemon_set_search" model="ir.ui.view">
+        <field name="name">pokemon.set.search</field>
+        <field name="model">pokemon.set</field>
+        <field name="arch" type="xml">
+            <search string="Pokemon Sets">
+                <filter name="filter_priority" string="Priority" domain="[('priority', '!=', 0)]" />
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_pokemon_card" model="ir.actions.act_window">
+        <field name="name">Cards</field>
+        <field name="res_model">pokemon.card</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_pokemon_set" model="ir.actions.act_window">
+        <field name="name">Sets</field>
+        <field name="res_model">pokemon.set</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="context">{'search_default_filter_priority': 1}</field>
+    </record>
+
+    <!-- List views -->
+    <record id="view_pokemon_card_list" model="ir.ui.view">
+        <field name="name">pokemon.card.list</field>
+        <field name="model">pokemon.card</field>
+        <field name="arch" type="xml">
+            <list string="Pokemon Cards" create="false">
+                <field name="name" />
+                <field name="set_id" />
+                <field name="rarity" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_pokemon_set_list" model="ir.ui.view">
+        <field name="name">pokemon.set.list</field>
+        <field name="model">pokemon.set</field>
+        <field name="arch" type="xml">
+            <list string="Pokemon Sets" create="false">
+                <field widget="priority" name="priority" string="Favorite" />
+                <field name="name" />
+                <field name="set_id" />
+                <field name="printed_total" />
+                <field name="total" />
+                <field name="release_date" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Form views -->
+    <record id="view_pokemon_card_form" model="ir.ui.view">
+        <field name="name">pokemon.card.form</field>
+        <field name="model">pokemon.card</field>
+        <field name="arch" type="xml">
+            <form string="Pokemon Card">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="set_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_pokemon_set_form" model="ir.ui.view">
+        <field name="name">pokemon.set.form</field>
+        <field name="model">pokemon.set</field>
+        <field name="arch" type="xml">
+            <form string="Pokemon Set">
+                <!-- <header>
+                    <button string="Get cards" type="object" name="action_get_cards" />
+                </header> -->
+                <sheet>
+                    <group>
+                        <group>
+                            <!-- <field name="image_symbol_url" widget="image" string="" /> -->
+                            <field name="set_id" />
+                            <field name="name" />
+                            <field name="printed_total" />
+                            <field name="total" />
+                            <field name="release_date" />
+                        </group>
+                        <group>
+                            <field name="image_logo_url" widget="image" string="" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Create kanban -->
+    <record id="view_pokemon_set_kanban" model="ir.ui.view">
+        <field name="name">pokemon.set.kanban</field>
+        <field name="model">pokemon.set</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="name" />
+                <field name="image_symbol_url" />
+                <field name="set_id" />
+                <templates>
+                    <t t-name="card" class="flex-row">
+                        <aside class="o_kanban_aside_full">
+                            <field name="image_symbol_url" class="w-100" widget="image" options="{'img_class': 'object-fit-contain w-100 h-100'}" />
+                        </aside>
+                        <main class="ps-2 ps-md-0">
+                            <div class="mb-1">
+                                <field name="name" class="mb-0 fw-bold fs-5" />
+                            </div>
+                            <field name="set_id" class="text-truncate" />
+                            <footer>
+                                <div />
+                            </footer>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Main menu -->
+    <menuitem id="menu_pokedex_root" name="Pokedex" sequence="10" />
+
+    <!-- Menu items -->
+    <menuitem id="menu_pokedex_card_list" name="Cards" parent="menu_pokedex_root" action="action_pokemon_card" sequence="10" />
+    <menuitem id="menu_pokedex_set_list" name="Sets" parent="menu_pokedex_root" action="action_pokemon_set" sequence="20" />
+
+
+</odoo>
