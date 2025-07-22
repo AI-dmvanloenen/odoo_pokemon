@@ -4,6 +4,7 @@ import base64
 import requests
 from datetime import datetime
 from pokemontcgsdk import Set
+from pokemontcgsdk import Card
 
 
 class PokemonSet(models.Model):
@@ -63,6 +64,18 @@ class PokemonSet(models.Model):
 
         if new_vals:
             self.env['pokemon.set'].with_context(allow_write_readonly_fields=True).create(new_vals)
+
+    def action_get_cards(self):
+        self.ensure_one()
+        cards = Card.where(q='set.name:"%s" supertype:pokemon' % self.name)
+        # cards = Card.where(q='set.set_id: %s' % self.set_id)
+        for card in cards:
+            card_data = {
+                'card_id': card.id,
+                'name': card.name,
+                'set_id': self.id,
+            }
+            self.env['pokemon.card'].create(card_data)
 
         @api.model
         def create(self, vals):

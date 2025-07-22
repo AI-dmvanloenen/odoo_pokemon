@@ -73,9 +73,9 @@
         <field name="model">pokemon.set</field>
         <field name="arch" type="xml">
             <form string="Pokemon Set">
-                <!-- <header>
+                <header>
                     <button string="Get cards" type="object" name="action_get_cards" />
-                </header> -->
+                </header>
                 <sheet>
                     <group>
                         <group>
